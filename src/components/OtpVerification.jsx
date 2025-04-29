@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/otp.css";
+
 
 
 const OtpVerification = () => {
@@ -49,7 +49,7 @@ const OtpVerification = () => {
 
   return (
     <div className="otp-container">
-      <h2>OTP Verification</h2>
+      <h2 style={{ color: 'black' }}>OTP Verification</h2>
       {!otpSent ? (
         <>
           <input
