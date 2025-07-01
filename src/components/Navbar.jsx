@@ -1,25 +1,25 @@
-import React from 'react';
+import { AppBar, Toolbar, IconButton, Typography, Button } from '@mui/material';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-    return (
-        <nav>
-            <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/requests">Requests</Link>
-                </li>
-                <li>
-                    <Link to="/approvals">Approvals</Link>
-                </li>
-                <li>
-                    <Link to="/settings">Settings</Link>
-                </li>
-            </ul>
-        </nav>
-    );
+  const { user, logout } = useContext(AuthContext);
+
+  return (
+    <AppBar position="fixed">
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          CampusConnect
+        </Typography>
+        {user ? (
+          <Button color="inherit" onClick={logout}>Logout</Button>
+        ) : (
+          <Button color="inherit" component={Link} to="/login">Login</Button>
+        )}
+      </Toolbar>
+    </AppBar>
+  );
 };
 
 export default Navbar;
