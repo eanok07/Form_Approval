@@ -44,6 +44,7 @@ import Home from './pages/Home';
 import Requests from './pages/Requests';
 import Approvals from './pages/Approvals';
 import Settings from './pages/Settings';
+import Reports from './pages/Reports';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -64,6 +65,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/requests" element={<Requests />} />
               <Route path="/approvals" element={<Approvals />} />
+              <Route path="/reports" element={<Reports />} />
               <Route path="/settings" element={<Settings />} />
             </Routes>
           </Box>
