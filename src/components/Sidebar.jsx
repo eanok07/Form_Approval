@@ -1,82 +1,109 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+// import React from 'react';
+
+// const Sidebar = () => {
+//     return (
+//         <div className="sidebar">
+//             <h2>Navigation</h2>
+//             <ul>
+//                 <li><a href="/">Home</a></li>
+//                 <li><a href="/requests">Requests</a></li>
+//                 <li><a href="/approvals">Approvals</a></li>
+//                 <li><a href="/settings">Settings</a></li>
+//             </ul>
+//         </div>
+//     );
+// };
+
+// export default Sidebar;
+
+import React from 'react';
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Button,
+  Toolbar,
+  Divider
+} from '@mui/material';
+import {
+  Home as HomeIcon,
+  Description as RequestsIcon,
+  CheckCircle as ApprovalsIcon,
+  Assessment as ReportsIcon,
+  Settings as SettingsIcon,
+  Help as HelpIcon,
+  Add as AddIcon
+} from '@mui/icons-material';
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const sidebarStyle = {
-    position: "fixed",
-    top: 0,
-    left: isOpen ? 0 : "-250px", // Slide in/out
-    width: "250px", // Fixed width
-    height: "100vh", // Full height
-    backgroundColor: "#2c3e50",
-    color: "white",
-    display: "flex",
-    flexDirection: "column", // Stack items vertically
-    zIndex: 1000,
-    padding: "20px",
-    boxShadow: "2px 0 8px rgba(0,0,0,0.3)",
-    transition: "left 0.3s ease", // Smooth slide animation
-  };
-
-  const toggleButtonStyle = {
-    position: "fixed",
-    top: "20px",
-    right: "20px",
-    backgroundColor: "#3498db",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    padding: "10px",
-    fontSize: "20px",
-    zIndex: 1100,
-    cursor: "pointer",
-  };
-
-  const overlayStyle = {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100vw",
-    height: "100vh",
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
-    zIndex: 999,
-    display: isOpen ? "block" : "none",
-  };
-
-  return (
-    <>
-      {/* Toggle Button */}
-      <button style={toggleButtonStyle} onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? "❌" : "☰"}
-      </button>
-
-      {/* Overlay */}
-      {isOpen && <div style={overlayStyle} onClick={() => setIsOpen(false)}></div>}
-
-      {/* Sidebar */}
-      <aside style={sidebarStyle}>
-        <ul style={{ listStyle: "none", padding: 0, marginTop: "30px" }}>
-          <li style={{ marginBottom: "15px" }}>
-            <Link to="/super-admin" style={{ color: "#fff", textDecoration: "none" }}>Dashboard</Link>
-          </li>
-          <li style={{ marginBottom: "15px" }}>
-            <Link to="/admin" style={{ color: "#fff", textDecoration: "none" }}>Admin Panel</Link>
-          </li>
-          <li style={{ marginBottom: "15px" }}>
-            <Link to="/staff" style={{ color: "#fff", textDecoration: "none" }}>Staff Section</Link>
-          </li>
-          <li style={{ marginBottom: "15px" }}>
-            <Link to="/student" style={{ color: "#fff", textDecoration: "none" }}>Student Panel</Link>
-          </li>
-          <li>
-            <Link to="/approval" style={{ color: "#fff", textDecoration: "none" }}>Approval</Link>
-          </li>
-        </ul>
-      </aside>
-    </>
-  );
+  try {
+    return (
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: 240,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: 240,
+            boxSizing: 'border-box',
+            borderRight: '1px solid #dbe0e6',
+          },
+        }}
+      >
+        <Toolbar /> {/* Spacer for app bar */}
+        <Divider />
+        <List>
+          <ListItem button selected>
+            <ListItemIcon><HomeIcon color="primary" /></ListItemIcon>
+            <ListItemText primary="Home" primaryTypographyProps={{ fontWeight: 600 }} />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon><RequestsIcon /></ListItemIcon>
+            <ListItemText primary="Requests" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon><ApprovalsIcon /></ListItemIcon>
+            <ListItemText primary="Approvals" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon><ReportsIcon /></ListItemIcon>
+            <ListItemText primary="Reports" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon><SettingsIcon /></ListItemIcon>
+            <ListItemText primary="Settings" />
+          </ListItem>
+        </List>
+        <Divider />
+        <div style={{ padding: '16px' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            startIcon={<AddIcon />}
+            sx={{ mb: 2 }}
+          >
+            New Request
+          </Button>
+          <List>
+            <ListItem button>
+              <ListItemIcon><HelpIcon /></ListItemIcon>
+              <ListItemText primary="Help and Docs" />
+            </ListItem>
+          </List>
+        </div>
+      </Drawer>
+    );
+  } catch (error) {
+    console.error('Error in Sidebar component:', error);
+    return (
+      <div style={{ padding: 16, color: 'red' }}>
+        Error loading sidebar. Please try again later.
+      </div>
+    );
+  }
 };
 
 export default Sidebar;
